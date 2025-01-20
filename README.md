@@ -1,6 +1,6 @@
 ---
 
-# ChatApp - 基于 DeepSeek API 的 AI 对话应用
+# AIChatByDeepSeekApp - 基于 DeepSeek API 的 AI 对话应用
 
 ## 项目简介
 本项目是一个基于 DeepSeek API 的 Android 应用，用户可以通过输入自己的 API Key 与 AI 进行交互。应用支持以下功能：

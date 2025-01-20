@@ -2,8 +2,11 @@ package com.example.chatapp
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Rect
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import android.widget.EditText
 import retrofit2.Callback
@@ -14,6 +17,9 @@ import retrofit2.converter.gson.GsonConverterFactory
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import android.widget.ImageButton
+import android.widget.LinearLayout
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.io.Serializable
@@ -23,6 +29,7 @@ import java.util.concurrent.TimeUnit
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var inputContainer: View
     private lateinit var recyclerView: RecyclerView
     private lateinit var inputText: EditText
     private lateinit var sendButton: ImageButton
@@ -37,6 +44,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        inputContainer = findViewById(R.id.inputContainer)
         recyclerView = findViewById(R.id.recyclerView)
         inputText = findViewById(R.id.inputText)
         sendButton = findViewById(R.id.sendButton)
@@ -94,6 +102,23 @@ class MainActivity : AppCompatActivity() {
         settingsButton.setOnClickListener {
             val intent = Intent(this, SettingsActivity::class.java)
             startActivity(intent)
+        }
+
+        // 监听键盘弹出和隐藏事件
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(android.R.id.content)) { view, insets ->
+            val imeHeight = insets.getInsets(WindowInsetsCompat.Type.ime()).bottom
+            val navigationBarHeight = insets.getInsets(WindowInsetsCompat.Type.navigationBars()).bottom
+
+            if (imeHeight > 0) { // 键盘弹出
+                // 调整输入框的位置
+                inputContainer.translationY = -imeHeight.toFloat()
+            } else { // 键盘隐藏
+                // 恢复输入框的位置
+                inputContainer.translationY = 0f
+            }
+
+            // 返回处理后的 WindowInsets
+            insets
         }
     }
 

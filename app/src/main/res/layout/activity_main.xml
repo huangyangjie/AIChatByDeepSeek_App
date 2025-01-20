@@ -3,12 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context=".MainActivity"
     android:background="@color/white"
     android:paddingTop="40dp"
-    android:paddingBottom="40dp">
+    android:paddingBottom="40dp"
+    android:id="@+id/rootLayout">
 
     <!-- 聊天记录区域 -->
     <androidx.recyclerview.widget.RecyclerView
@@ -21,16 +21,12 @@
         tools:listitem="@layout/item_message_user" />
 
     <!-- 输入框和发送按钮 -->
-    <TableLayout
+    <LinearLayout
+        android:id="@+id/inputContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="8dp"
-        android:stretchColumns="1"> <!-- 拉伸第二列 -->
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical">
+        android:gravity="center_vertical">
 
             <!-- 设置按钮 -->
             <ImageButton
@@ -63,7 +59,7 @@
                 android:paddingHorizontal="16dp"
                 android:paddingVertical="12dp"
                 android:src="@drawable/arrow_upward_24px" />
-        </TableRow>
-    </TableLayout>
+
+    </LinearLayout>
 
 </LinearLayout>

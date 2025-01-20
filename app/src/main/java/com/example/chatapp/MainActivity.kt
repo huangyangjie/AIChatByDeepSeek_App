@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var inputText: EditText
-    private lateinit var sendButton: Button
+    private lateinit var sendButton: ImageButton
     private lateinit var settingsButton: ImageButton // 新增设置按钮
     private val chatMessages = mutableListOf<ChatMessage>()
     private lateinit var adapter: ChatAdapter

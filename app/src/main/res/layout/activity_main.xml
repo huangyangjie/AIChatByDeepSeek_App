@@ -3,8 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="@color/white"
+    android:paddingTop="40dp"
+    android:paddingBottom="40dp">
 
     <!-- 聊天记录区域 -->
     <androidx.recyclerview.widget.RecyclerView
@@ -12,50 +16,54 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:padding="8dp"
+        android:padding="16dp"
         android:background="@color/white"
         tools:listitem="@layout/item_message_user" />
 
     <!-- 输入框和发送按钮 -->
-    <LinearLayout
+    <TableLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:padding="8dp"
-        android:background="@color/white"
-        android:elevation="4dp">
+        android:stretchColumns="1"> <!-- 拉伸第二列 -->
 
-        <!-- 设置按钮 -->
-        <ImageButton
-            android:id="@+id/settingsButton"
-            android:layout_width="wrap_content"
+        <TableRow
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:paddingHorizontal="16dp"
-            android:paddingVertical="12dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="@string/settings_button_description"
-            android:src="@drawable/settings_24px" /> <!-- 设置图标 -->
+            android:gravity="center_vertical">
 
-        <EditText
-            android:id="@+id/inputText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:hint="Type a message..."
-            android:padding="12dp"
-            android:background="@drawable/input_background" />
+            <!-- 设置按钮 -->
+            <ImageButton
+                android:id="@+id/settingsButton"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:padding="12dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/settings_button_description"
+                android:src="@drawable/settings_24px" />
 
-        <Button
-            android:id="@+id/sendButton"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Send"
-            android:paddingHorizontal="16dp"
-            android:paddingVertical="12dp"
-            android:backgroundTint="@color/material_dynamic_tertiary50"
-            android:textColor="@color/white" />
-    </LinearLayout>
+            <!-- 输入框 -->
+            <EditText
+                android:id="@+id/inputText"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:hint="Type a message..."
+                android:padding="12dp"
+                android:background="@drawable/input_background"
+                android:gravity="center_vertical" />
+
+            <!-- 发送按钮 -->
+            <ImageButton
+                android:id="@+id/sendButton"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/settings_button_description"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="12dp"
+                android:src="@drawable/arrow_upward_24px" />
+        </TableRow>
+    </TableLayout>
 
 </LinearLayout>

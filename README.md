@@ -72,7 +72,9 @@
 ---
 
 ## 截图
-![1](https://github.com/user-attachments/assets/2f1702ca-3ad9-4f9f-b4a5-ae78de6066e5)
+![Screenshot_2025-01-20-20-42-18-975_com example ch](https://github.com/user-attachments/assets/1044e489-3f3a-484b-a593-cb93ae0197d7)
+
+
 
 
 ---

@@ -1,6 +1,6 @@
 ---
 
-# AIChatByDeepSeekApp - 基于 DeepSeek API 的 AI 对话应用
+# AIChatByDeepSeek_App - 基于 DeepSeek API 的 AI 对话应用
 
 ## 项目简介
 本项目是一个基于 DeepSeek API 的 Android 应用，用户可以通过输入自己的 API Key 与 AI 进行交互。应用支持以下功能：
@@ -24,6 +24,7 @@
 
 3. **设置页面**：
    - 用户可以输入自己的 DeepSeek API Key。
+   - 选择不同的模型（暂时只支持DeepSeek-Chat）
    - 提供清除对话历史的功能。
 
 ---

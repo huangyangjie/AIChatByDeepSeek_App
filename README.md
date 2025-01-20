@@ -67,7 +67,7 @@
 ## 联系方式
 如有任何问题或建议，请联系：
 - 邮箱：1372487981@qq.com
-- GitHub: [loser summer](https://github.com/driohcker)
+- GitHub: [lost summer](https://github.com/driohcker)
 
 ---
 

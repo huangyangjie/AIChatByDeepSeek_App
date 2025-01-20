@@ -76,9 +76,11 @@
 ![1](https://github.com/user-attachments/assets/8592b4b2-c760-465c-9e31-0d0ef8306c11)
 
 
+## 致谢
+
+- [DeepSeek](https://www.deepseek.com) - 提供 AI 和数据服务。
 
 
 
 ---
 
-感谢使用本应用！希望它能为你带来帮助和乐趣。

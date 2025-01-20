@@ -72,7 +72,10 @@
 ---
 
 ## 截图
-![1](https://github.com/user-attachments/assets/2f1702ca-3ad9-4f9f-b4a5-ae78de6066e5)
+![1](https://github.com/user-attachments/assets/8592b4b2-c760-465c-9e31-0d0ef8306c11)
+
+
+
 
 
 ---

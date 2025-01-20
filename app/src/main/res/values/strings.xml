@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">ChatApp</string>
+    <string name="settings_button_description">设置</string>
+    <string name="back_button_description">返回</string>
+</resources>

@@ -26,7 +26,7 @@ This project is for learning and reference purposes only, and any issues are not
 
 3. **Settings Page**:
    - Users can input their own DeepSeek API Key.
-   - Choose different models (currently only DeepSeek-Chat is supported).
+   - Choose different models
    - Provides the function to clear conversation history.
 
 ---

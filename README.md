@@ -34,7 +34,7 @@
    - 前往 [DeepSeek 官网](https://www.deepseek.com) 注册并获取 API Key。
 
 2. **设置 API Key**：
-   - 打开应用，点击右上角的设置按钮。
+   - 打开应用，点击左下角的设置按钮。
    - 在设置页面中输入你的 API Key，然后点击保存。
 
 3. **开始对话**：
@@ -76,9 +76,11 @@
 ![1](https://github.com/user-attachments/assets/8592b4b2-c760-465c-9e31-0d0ef8306c11)
 
 
+## 致谢
+
+- [DeepSeek](https://www.deepseek.com) - 提供 AI 和数据服务。
 
 
 
 ---
 
-感谢使用本应用！希望它能为你带来帮助和乐趣。

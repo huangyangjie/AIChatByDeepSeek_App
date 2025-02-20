@@ -12,7 +12,7 @@
         android:id="@+id/messageText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="12dp"
+        android:padding="15dp"
         android:background="@drawable/bubble_ai"
         android:textColor="@color/black"
         android:text="正在思考..." />

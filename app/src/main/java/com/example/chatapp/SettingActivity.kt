@@ -18,6 +18,7 @@ class SettingsActivity : AppCompatActivity() {
     private lateinit var backButton: ImageButton
     private lateinit var clearHistoryButton: Button
     private lateinit var modelSpinner: Spinner
+    private var usefulModels: Array<String> = arrayOf("deepseek-chat", "deepseek-reasoner")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,7 +31,7 @@ class SettingsActivity : AppCompatActivity() {
         modelSpinner = findViewById(R.id.modelSpinner)
 
         //初始化模型选择器
-        val models = arrayOf("deepseek-chat") // 可用的模型列表
+        val models = usefulModels // 可用的模型列表
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, models)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         modelSpinner.adapter = adapter
@@ -58,7 +59,7 @@ class SettingsActivity : AppCompatActivity() {
                 editor.putString("MODEL", selectedModel) // 保存选择的模型
                 editor.apply()
 
-                Toast.makeText(this, "Settings were saved", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Settings were saved,selectedModel: $selectedModel", Toast.LENGTH_SHORT).show()
 
                 // 返回主界面
                 val intent = Intent(this, MainActivity::class.java)

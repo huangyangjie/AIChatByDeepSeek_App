@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rootLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background_gray"
     android:orientation="vertical"
-    tools:context=".MainActivity"
-    android:background="@color/white"
     android:paddingTop="40dp"
-    android:paddingBottom="40dp"
-    android:id="@+id/rootLayout">
+    tools:context=".MainActivity">
 
     <!-- 聊天记录区域 -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:padding="16dp"
-        android:background="@color/white"
+        android:layout_height="match_parent"
+        android:background="@drawable/background_gray"
+        android:paddingLeft="16dp"
+        android:paddingTop="16dp"
+        android:paddingRight="16dp"
         tools:listitem="@layout/item_message_user" />
 
     <!-- 输入框和发送按钮 -->
@@ -25,41 +25,50 @@
         android:id="@+id/inputContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="8dp"
-        android:gravity="center_vertical">
+        android:layout_gravity="bottom"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/background_white"
+        android:gravity="center_vertical"
+        android:padding="6dp">
 
-            <!-- 设置按钮 -->
-            <ImageButton
-                android:id="@+id/settingsButton"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:padding="12dp"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:contentDescription="@string/settings_button_description"
-                android:src="@drawable/settings_24px" />
+        <!-- 设置按钮 -->
+        <ImageButton
+            android:id="@+id/settingsButton"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/settings_button_description"
+            android:padding="12dp"
+            android:src="@drawable/settings_24px" />
 
-            <!-- 输入框 -->
-            <EditText
-                android:id="@+id/inputText"
-                android:layout_width="0dp"
-                android:layout_height="48dp"
-                android:layout_weight="1"
-                android:hint="Type a message..."
-                android:padding="12dp"
-                android:background="@drawable/input_background"
-                android:gravity="center_vertical" />
+        <!-- 输入框 -->
+        <EditText
+            android:id="@+id/inputText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/input_background"
+            android:gravity="center_vertical"
+            android:hint="Type a message..."
+            android:inputType="textMultiLine"
+            android:maxHeight="100dp"
+            android:padding="15dp"
+            android:scrollbars="vertical"
+            android:textSize="16dp" />
 
-            <!-- 发送按钮 -->
-            <ImageButton
-                android:id="@+id/sendButton"
-                android:layout_width="wrap_content"
-                android:layout_height="48dp"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:contentDescription="@string/settings_button_description"
-                android:paddingHorizontal="16dp"
-                android:paddingVertical="12dp"
-                android:src="@drawable/arrow_upward_24px" />
+        <!-- 发送按钮 -->
+        <ImageButton
+            android:id="@+id/sendButton"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/settings_button_description"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="12dp"
+            android:src="@drawable/arrow_upward_24px" />
 
     </LinearLayout>
 
-</LinearLayout>
+</FrameLayout>

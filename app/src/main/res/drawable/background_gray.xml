@@ -1,6 +1,4 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
     <solid android:color="@color/material_dynamic_neutral95" />
-    <corners android:radius="24dp" />
-    <stroke android:width="0dp"
-        android:color="@color/material_dynamic_neutral80" />
+    <corners android:radius="0dp" />
 </shape>

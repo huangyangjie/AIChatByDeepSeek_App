@@ -144,13 +144,15 @@ class MainActivity : AppCompatActivity() {
         }
 
         val request = ChatRequest(
-            model = "deepseek-chat", // 模型名称
+            model = getSharedPreferences("AppPreferences", Context.MODE_PRIVATE).getString("MODEL", "deepseek-chat").toString(),
+            //model = "deepseek-chat",
             messages = listOf(Message(role = "user", content = userMessage))
         )
 
         val call = deepSeekApiService.getChatResponse("Bearer $apiKey", request)
         call.enqueue(object : Callback<ChatResponse> {
             override fun onResponse(call: Call<ChatResponse>, response: Response<ChatResponse>) {
+                Log.d("MainActivity", "收到回复")
                 // 移除“正在思考”消息
                 chatMessages.removeAt(chatMessages.size - 1)
                 adapter.notifyItemRemoved(chatMessages.size)

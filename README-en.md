@@ -82,5 +82,3 @@ For any questions or suggestions, please contact:
 - [DeepSeek](https://www.deepseek.com) - Providing AI and data services.
 
 ---
-
-I hope this helps! If you need any further assistance, feel free to ask.

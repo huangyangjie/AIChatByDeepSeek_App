@@ -1,3 +1,5 @@
+[English](./README-en.md) | [中文](./README.md)
+
 ---
 
 # AIChatByDeepSeek_App - 基于 DeepSeek API 的 AI 对话应用

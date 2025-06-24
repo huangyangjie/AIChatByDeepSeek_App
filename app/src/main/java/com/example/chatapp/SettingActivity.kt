@@ -18,8 +18,7 @@ class SettingsActivity : AppCompatActivity() {
     private lateinit var backButton: ImageButton
     private lateinit var clearHistoryButton: Button
     private lateinit var modelSpinner: Spinner
-    private var usefulModels: Array<String> = arrayOf("deepseek-chat", "deepseek-reasoner")
-
+    private var usefulModels: Array<String> = arrayOf("deepseek-ai/DeepSeek-R1-0528-Qwen3-8B","deepseek-chat", "deepseek-reasoner")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)

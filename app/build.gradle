@@ -41,9 +41,9 @@ configurations {
 
 dependencies {
     // Network
-    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
-    implementation 'com.squareup.okhttp3:logging-interceptor:4.12.0'  // 更新到最新版本
+    implementation libs.retrofit2
+    implementation libs.converter.gson
+    implementation libs.okhttp3.logging.interceptor // 更新到最新版本
 
     // Lifecycle & Coroutines
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.7.0'  // 更新到最新版本

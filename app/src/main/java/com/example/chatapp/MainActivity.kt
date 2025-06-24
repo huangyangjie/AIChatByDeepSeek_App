@@ -24,8 +24,10 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.io.Serializable
 import okhttp3.OkHttpClient
+import okhttp3.ResponseBody
 import okhttp3.logging.HttpLoggingInterceptor
 import java.util.concurrent.TimeUnit
+import kotlin.math.log
 
 class MainActivity : AppCompatActivity() {
 
@@ -67,7 +69,7 @@ class MainActivity : AppCompatActivity() {
 
         // 初始化 Retrofit 和 DeepSeek API 服务
         val retrofit = Retrofit.Builder()
-            .baseUrl("https://api.deepseek.com/")
+            .baseUrl(Config.BASEURL)
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
@@ -145,54 +147,84 @@ class MainActivity : AppCompatActivity() {
 
         val request = ChatRequest(
             model = getSharedPreferences("AppPreferences", Context.MODE_PRIVATE).getString("MODEL", "deepseek-chat").toString(),
-            //model = "deepseek-chat",
-            messages = listOf(Message(role = "user", content = userMessage))
+            messages = listOf(Message(role = "user", content = userMessage)),
+            stream = true,
+            stream_options = StreamOptions()
         )
-
+        Log.e("MainActivity", request.toString())
         val call = deepSeekApiService.getChatResponse("Bearer $apiKey", request)
-        call.enqueue(object : Callback<ChatResponse> {
-            override fun onResponse(call: Call<ChatResponse>, response: Response<ChatResponse>) {
-                Log.d("MainActivity", "收到回复")
-                // 移除“正在思考”消息
-                chatMessages.removeAt(chatMessages.size - 1)
-                adapter.notifyItemRemoved(chatMessages.size)
-
-                if (response.isSuccessful) {
-                    val aiMessage = response.body()?.choices?.firstOrNull()?.message?.content
-                    if (aiMessage != null) {
-                        // 添加 AI 回复
-                        chatMessages.add(ChatMessage(aiMessage, false))
-                        adapter.notifyItemInserted(chatMessages.size - 1)
-                        recyclerView.scrollToPosition(chatMessages.size - 1)
-
-                        // 保存对话历史
-                        saveChatHistory()
-                    }
-                } else {
-                    // 处理错误
-                    val errorMessage = "Error: ${response.code()} - ${response.message()}"
-                    Log.e("API_ERROR", errorMessage)
+        call.enqueue(object : Callback<ResponseBody> {
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                if (!response.isSuccessful) {
+                    // 错误处理
                     chatMessages.add(ChatMessage("Error: ${response.message()}", false))
                     adapter.notifyItemInserted(chatMessages.size - 1)
+                    return
                 }
-            }
 
-            override fun onFailure(call: Call<ChatResponse>, t: Throwable) {
+                val body = response.body()
+                if (body == null) {
+                    chatMessages.add(ChatMessage("Empty response", false))
+                    adapter.notifyItemInserted(chatMessages.size - 1)
+                    return
+                }
+
                 // 移除“正在思考”消息
                 chatMessages.removeAt(chatMessages.size - 1)
                 adapter.notifyItemRemoved(chatMessages.size)
 
-                // 处理失败
-                val errorMessage = if (t is java.net.SocketTimeoutException) {
-                    "Failure: Timeout. Please check your network connection and try again."
-                } else {
-                    "Failure: ${t.message}"
+                // 创建一个临时的 AI 消息对象用于逐步更新
+                val aiMessage = StringBuilder()
+                val tempMessage = ChatMessage("", isUser = false)
+                chatMessages.add(tempMessage)
+                val position = chatMessages.size - 1
+                adapter.notifyItemInserted(position)
+
+                // 使用缓冲字符流读取响应
+                val source = body.source()
+                source.request(Long.MAX_VALUE) // 请求全部数据
+                val buffer = source.buffer()
+
+                // 按行读取
+                while (!source.exhausted()) {
+                    val line = buffer.readUtf8LineStrict()
+                    if (line.startsWith("data: ")) {
+                        val json = line.substring(6).trim()
+                        if (json == "[DONE]") break
+
+                        try {
+                            val gson = Gson()
+                            val itemType = object : TypeToken<Choice>() {}.type
+                            val choice = gson.fromJson<Choice>(json, itemType)
+                            val content = choice.delta?.content ?: continue
+
+                            aiMessage.append(content)
+                            aiMessage.append(content)
+                            tempMessage.message = aiMessage.toString()
+                            adapter.notifyItemChanged(position)
+                            recyclerView.scrollToPosition(position)
+
+                        } catch (e: Exception) {
+                            Log.e("StreamParseError", "Failed to parse: $json", e)
+                        }
+                    }
                 }
-                Log.e("API_FAILURE", errorMessage, t)
+
+                // 最终保存对话历史
+                chatMessages[position] = ChatMessage(aiMessage.toString(), isUser = false)
+                adapter.notifyItemChanged(position)
+                saveChatHistory()
+            }
+
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                // 失败处理逻辑
+                chatMessages.removeAt(chatMessages.size - 1)
+                adapter.notifyItemRemoved(chatMessages.size)
                 chatMessages.add(ChatMessage("Failure: ${t.message}", false))
                 adapter.notifyItemInserted(chatMessages.size - 1)
             }
-        })
+        } )
+
     }
     private fun saveChatHistory() {
         val sharedPreferences = getSharedPreferences("AppPreferences", Context.MODE_PRIVATE)
@@ -226,7 +258,7 @@ class MainActivity : AppCompatActivity() {
 
 // 数据类
 data class ChatMessage(
-    val message: String,
+    var message: String,
     val isUser: Boolean,
     val isThinking: Boolean = false // 是否为“正在思考”消息
 ): Serializable
@@ -234,7 +266,9 @@ data class ChatMessage(
 // DeepSeek API 请求和响应数据类
 data class ChatRequest(
     val model: String,
-    val messages: List<Message>
+    val messages: List<Message>,
+    val stream: Boolean,
+    val stream_options: StreamOptions
 )
 
 data class Message(
@@ -247,6 +281,9 @@ data class ChatResponse(
 )
 
 data class Choice(
-    val message: Message
+    val delta: Message
 )
 
+class StreamOptions(
+    val streamOptions: Boolean = true
+)

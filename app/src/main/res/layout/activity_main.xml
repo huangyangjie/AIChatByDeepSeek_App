@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/rootLayout"
     android:layout_width="match_parent"
@@ -10,25 +10,23 @@
     tools:context=".MainActivity">
 
     <!-- 聊天记录区域 -->
+
+    <!-- 输入框和发送按钮 -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:background="@drawable/background_gray"
         android:paddingLeft="16dp"
         android:paddingTop="16dp"
         android:paddingRight="16dp"
         tools:listitem="@layout/item_message_user" />
 
-    <!-- 输入框和发送按钮 -->
     <LinearLayout
         android:id="@+id/inputContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginBottom="30dp"
         android:background="@drawable/background_white"
         android:gravity="center_vertical"
         android:padding="6dp">
@@ -69,6 +67,15 @@
             android:paddingVertical="12dp"
             android:src="@drawable/arrow_upward_24px" />
 
+        <TextView
+            android:id="@+id/cancel_button"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:contentDescription="@string/settings_button_description"
+            android:gravity="center"
+            android:text="X"
+            android:textSize="30sp" />
+
     </LinearLayout>
 
-</FrameLayout>
+</LinearLayout>
